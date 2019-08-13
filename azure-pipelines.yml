@@ -6,6 +6,13 @@
 trigger:
 - master
 
+variables:
+  Version.Revision: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
+  MajorVersion: 1
+  MinorVersion: 1
+
+name: '$(Build.DefinitionName) $(MajorVersion).$(MinorVersion).$(Date:yy)$(DayOfYear).$(Version.Revision)'
+
 pool:
   vmImage: 'ubuntu-latest'
 
