@@ -29,17 +29,15 @@ jobs:
       with:
         login-server: bestforyouregistrywm.azurecr.io
         username: bestforyouregistrywm
-        password: ${{ secrets.DOCKER_PASSWORD }}        
-     
+        password: ${{ secrets.DOCKER_PASSWORD }}     
     - name: Run docker build and push
       run: |
         cd "Hands-on lab/lab-files"
         docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
-        docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}   
-
-     - name: Azure Login action
-       uses: Azure/github-actions/login@master
-       with:
+        docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
+    - name: Azure Login action
+      uses: Azure/github-actions/login@master
+      with:
          AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
          AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
