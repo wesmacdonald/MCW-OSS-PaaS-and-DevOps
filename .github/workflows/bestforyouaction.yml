@@ -29,12 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
      - name: Azure Login action
-       uses: Azure/github-actions/login@master
-       with:         
-         AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
-         AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
-         AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
-         AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
+       uses: azure/actions/login@master
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
      
      - name: Docker Login action
        uses: azure/container-actions/docker-login@master
@@ -59,9 +56,6 @@ jobs:
           DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
           CONTAINER_IMAGE_NAME: best-for-you-organics
           CONTAINER_IMAGE_TAG: latest
-          AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
-          AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
-          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
-          AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
+         
           
           
