@@ -13,6 +13,15 @@ jobs:
         node-version: [12.x]
 
     steps:
+    - name: Azure Login action
+      uses: Azure/github-actions/login@master
+       env:
+         AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
+         AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
+         AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
+       with: 
+         AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
+
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -38,20 +47,10 @@ jobs:
         docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
         docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
 
-    - name: Azure Login action
-      uses: Azure/github-actions/login@master
-      with:
-         AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
-         AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
-         AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }} 
-       env:
-         AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
-
     - name: Azure Web App for Containers action
       uses: Azure/github-actions/containerwebapp@master
       with:
          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-       env:
          AZURE_APP_NAME: best-for-you-app-wm
          DOCKER_USERNAME: bestforyouregistrywm
          DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
