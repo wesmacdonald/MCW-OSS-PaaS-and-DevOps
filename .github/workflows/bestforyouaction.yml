@@ -22,6 +22,7 @@ jobs:
         cd "Hands-on lab/lab-files"
         npm install
         npm run build
+        
      - name: Azure Login
        uses: Azure/github-actions/login@master
        env:
