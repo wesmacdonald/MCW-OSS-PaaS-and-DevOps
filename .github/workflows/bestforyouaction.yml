@@ -28,7 +28,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps: 
-     - name: Azure Login action
      - uses: azure/actions/login@master
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
