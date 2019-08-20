@@ -23,12 +23,8 @@ jobs:
         cd "Hands-on lab/lab-files"
         npm install
         npm run build
-  deploy:
-    name: Login to Azure and Deploy docker to WebApp for containers
-    needs: build
-    runs-on: ubuntu-latest
-    steps:    
-     - name: Docker Login action
+ 
+    - name: Docker Login action
        uses: azure/container-actions/docker-login@master
        with:
         login-server: bestforyouregistrywm.azurecr.io
