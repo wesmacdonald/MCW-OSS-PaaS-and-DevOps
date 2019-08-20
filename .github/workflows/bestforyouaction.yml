@@ -47,10 +47,10 @@ jobs:
     - name: Azure Web App for Containers action
       uses: Azure/github-actions/containerwebapp@master
       with:
-         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-         AZURE_APP_NAME: best-for-you-app-wm
-         DOCKER_USERNAME: bestforyouregistrywm
-         DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
-         CONTAINER_IMAGE_NAME: best-for-you-organics
-         CONTAINER_IMAGE_TAG: latest
-          
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        AZURE_APP_NAME: best-for-you-app-wm
+        DOCKER_USERNAME: bestforyouregistrywm
+        DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
+        CONTAINER_IMAGE_NAME: best-for-you-organics
+        CONTAINER_IMAGE_TAG: latest
+
