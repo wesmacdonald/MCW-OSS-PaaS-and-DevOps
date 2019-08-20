@@ -32,7 +32,7 @@ jobs:
        uses: azure/actions/login@master
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-     
+        
      - name: Docker Login action
        uses: azure/container-actions/docker-login@master
        with:
