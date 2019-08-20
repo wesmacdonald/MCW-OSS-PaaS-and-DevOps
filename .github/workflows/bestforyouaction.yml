@@ -27,7 +27,7 @@ jobs:
     name: Login to Azure and Deploy docker to WebApp for containers
     needs: build
     runs-on: ubuntu-latest
-     
+    steps: 
      - name: Azure Login
        uses: Azure/github-actions/login@master
        env:
