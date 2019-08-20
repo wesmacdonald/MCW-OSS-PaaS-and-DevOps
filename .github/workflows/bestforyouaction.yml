@@ -25,14 +25,14 @@ jobs:
         npm run build
  
     - name: Docker Login action
-       uses: azure/container-actions/docker-login@master
-       with:
+      uses: azure/container-actions/docker-login@master
+      with:
         login-server: bestforyouregistrywm.azurecr.io
         username: bestforyouregistrywm
         password: ${{ secrets.DOCKER_PASSWORD }}        
      
-     - name: Run docker build and push
-       run: |
+    - name: Run docker build and push
+      run: |
         cd "Hands-on lab/lab-files"
         docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
         docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}   
