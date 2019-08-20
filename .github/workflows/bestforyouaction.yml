@@ -45,8 +45,7 @@ jobs:
          AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
 
-     - name: Azure Web App for Containers action
-       uses: Azure/github-actions/containerwebapp@master
+    - uses: Azure/github-actions/containerwebapp@master
        with:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           AZURE_APP_NAME: best-for-you-app-wm
