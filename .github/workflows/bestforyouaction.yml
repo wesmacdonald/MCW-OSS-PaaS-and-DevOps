@@ -36,12 +36,22 @@ jobs:
          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
        with: 
          AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
-         
+     
+     - uses: azure/container-actions/docker-login@master
+      with:
+        login-server: bestforyouregistrywm.azurecr.io
+        username: bestforyouregistrywm
+        password: ${{ secrets.DOCKER_PASSWORD }}
+   
+    - run: |
+        cd "Hands-on lab/lab-files"
+        docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
+        docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}   
+     
      - name: Deploy to Azure WebappContainer
        uses: Azure/github-actions/containerwebapp@master
-        env:
+       with:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        with:
           AZURE_APP_NAME: best-for-you-app-wm
           DOCKER_USERNAME: bestforyouregistrywm
           DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
