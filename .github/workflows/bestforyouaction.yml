@@ -36,3 +36,12 @@ jobs:
          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
        with: 
          AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
+     - name: Deploy to Azure WebappContainer
+       uses: Azure/github-actions/containerwebapp@master
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        with:
+          AZURE_APP_NAME: best-for-you-app-wm
+          DOCKER_USERNAME: bestforyouregistrywm
+          DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
+          CONTAINER_IMAGE_NAME: best-for-you-organics
