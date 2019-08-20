@@ -28,30 +28,30 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps: 
-     - uses: Azure/github-actions/login@master
+     - name: Azure Login action
+       uses: Azure/github-actions/login@master
        with:         
          AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
          AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
          AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
      
-     - uses: azure/container-actions/docker-login@master
+     - name: Docker Login action
+       uses: azure/container-actions/docker-login@master
        with:
         login-server: bestforyouregistrywm.azurecr.io
         username: bestforyouregistrywm
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
-        AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
-        AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
-        AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
+        password: ${{ secrets.DOCKER_PASSWORD }}        
      
-     - run: |
+     - name: Run docker build and push
+       run: |
         cd "Hands-on lab/lab-files"
         docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
         docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}   
      
      # deploy the latest container
-     - uses: Azure/github-actions/containerwebapp@master
+     - name: Azure Web App for Containers action
+       uses: Azure/github-actions/containerwebapp@master
        with:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           AZURE_APP_NAME: best-for-you-app-wm
@@ -59,4 +59,9 @@ jobs:
           DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
           CONTAINER_IMAGE_NAME: best-for-you-organics
           CONTAINER_IMAGE_TAG: latest
+          AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
+          AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
+          AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
+          AZURE_SUBSCRIPTION: ad216d0c-2b3a-4fde-b64f-88a3ef624d70
+          
           
