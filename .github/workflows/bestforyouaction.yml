@@ -45,6 +45,7 @@ jobs:
         docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
 
     - name: Azure Web App for Containers action
+      # all required variables are present
       uses: Azure/github-actions/containerwebapp@master
       with:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
