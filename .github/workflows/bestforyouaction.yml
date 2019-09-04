@@ -42,8 +42,15 @@ jobs:
       run: |
         cd "Hands-on lab/lab-files"
         docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
-        docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
-
+        docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}     
+     
+    - name: Azure Login
+      uses: "Azure/github-actions/login@master"
+       env:
+         AZURE_SUBSCRIPTION = "Visual Studio Enterprise"
+      with:
+       secrets = [${{ secrets.AZURE_SERVICE_APP_ID }}, ${{ secrets.AZURE_SERVICE_PASSWORD }}, ${{ secrets.AZURE_SERVICE_TENANT }}]
+  
     - name: Azure Web App for Containers action
       # all required variables are present
       uses: Azure/github-actions/containerwebapp@master
