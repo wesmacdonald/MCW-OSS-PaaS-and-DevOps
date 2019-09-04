@@ -44,22 +44,9 @@ jobs:
         docker build . -t bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}
         docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}     
      
-    - name: Azure Login
-      uses: Azure/github-actions/login@master
+     
+    - uses: azure/appservice-actions/webapp-container@master
       with:
-         AZURE_SUBSCRIPTION: Visual Studio Enterprise
-         AZURE_SERVICE_APP_ID: ${{ secrets.AZURE_SERVICE_APP_ID }}
-         AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
-         AZURE_SERVICE_TENANT: ${{ secrets.AZURE_SERVICE_TENANT }}
-    
-    - name: Azure Web App for Containers action
-      # all required variables are present
-      uses: Azure/github-actions/containerwebapp@master
-      env:
-        AZURE_APP_NAME: best-for-you-app-wm
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_USERNAME: bestforyouregistrywm
-        DOCKER_REGISTRY_URL: bestforyouregistrywm.azurecr.io
-        CONTAINER_IMAGE_NAME: best-for-you-organics
-        CONTAINER_IMAGE_TAG: latest
-
+        app-name: 'best-for-you-app-wm'
+        images: 'bestforyouregistrywm.azurecr.io/best-for-you-organics:latest'
+        
