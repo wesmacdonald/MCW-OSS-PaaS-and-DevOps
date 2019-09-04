@@ -47,9 +47,9 @@ jobs:
     - name: Azure Login
       uses: Azure/github-actions/login@master
        env:
-         AZURE_SUBSCRIPTION = "Visual Studio Enterprise"
+         AZURE_SUBSCRIPTION: Visual Studio Enterprise
       with:
-       secrets = [${{ secrets.AZURE_SERVICE_APP_ID }}, ${{ secrets.AZURE_SERVICE_PASSWORD }}, ${{ secrets.AZURE_SERVICE_TENANT }}]
+       secrets: [${{ secrets.AZURE_SERVICE_APP_ID }}, ${{ secrets.AZURE_SERVICE_PASSWORD }}, ${{ secrets.AZURE_SERVICE_TENANT }}]
   
     - name: Azure Web App for Containers action
       # all required variables are present
