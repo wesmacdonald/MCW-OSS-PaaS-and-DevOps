@@ -47,7 +47,7 @@ jobs:
     - name: Azure Web App for Containers action
       # all required variables are present
       uses: Azure/github-actions/containerwebapp@master
-      with:
+      env:
         AZURE_APP_NAME: best-for-you-app-wm
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: bestforyouregistrywm
