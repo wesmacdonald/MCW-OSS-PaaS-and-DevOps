@@ -7,14 +7,13 @@ jobs:
     name: install npm and build
 
     runs-on: ubuntu-latest
-
-    env:
-        node-version: [12.x]
-
+    
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ node-version }}
       uses: actions/setup-node@v1
+       env:
+        node-version: [12]
       with:
         node-version: ${{ node-version }}
     - name: npm install and build
