@@ -1,0 +1,24 @@
+name: Node Build
+
+on: [push]
+
+jobs:
+  build:
+    name: install npm and build
+
+    runs-on: ubuntu-latest
+
+    env:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install and build
+      run: |
+        cd "Hands-on lab/lab-files"
+        npm install
+        npm run build
