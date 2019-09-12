@@ -16,7 +16,7 @@ jobs:
     - name: Use Node.js ${{ node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ node-version }}
     - name: npm install and build
       run: |
         cd "Hands-on lab/lab-files"
