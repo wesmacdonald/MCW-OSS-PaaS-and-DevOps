@@ -27,3 +27,11 @@ steps:
     npm run build
   displayName: 'npm install and build'
   workingDirectory: Hands-on lab/lab-files/
+
+- task: Docker@2
+  displayName: Docker Build and Push to Azure CR
+  inputs:
+    containerRegistry: 'bestforyouazurecr'
+    repository: 'best-for-you-organics'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
