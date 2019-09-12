@@ -7,17 +7,18 @@ jobs:
     name: install npm and build
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [12]
     
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ node-version }}
-       env:
-        node-version: [12]
-    - name: npm install and build
+        node-version: ${{ matrix.node-version }}
+    - name: npm clean install and build
       run: |
         cd "Hands-on lab/lab-files"
-        npm install
+        npm ci
         npm run build
