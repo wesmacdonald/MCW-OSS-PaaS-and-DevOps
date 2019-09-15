@@ -23,7 +23,8 @@ jobs:
         npm ci
         npm run build
         
-    - name: Make a Page
+    -
+      name: Make a Page
       run: |
           mkdir public
           cat > public/index.html <<EOL
@@ -37,7 +38,8 @@ jobs:
             </body>
           </html>
           EOL
-      - name: Deploy
+      -
+        name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@master
         with:
