@@ -36,9 +36,9 @@ jobs:
               <p>Node App with <strong>${{ github.sha }}</strong> commit ID has been built.</p>
             </body>
           </html>
-          EOL
-       -
-        name: Deploy
+         EOL
+
+      - name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@master
         with:
