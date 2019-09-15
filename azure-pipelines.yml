@@ -35,10 +35,7 @@ steps:
     repository: 'best-for-you-organics'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+    tags: $(Build.BuildId)
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '**/Dockerfile'
-    ArtifactName: 'Docker File'
-    publishLocation: 'Container'
+
   
