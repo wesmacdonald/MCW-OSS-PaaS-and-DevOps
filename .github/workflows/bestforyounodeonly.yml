@@ -37,7 +37,6 @@ jobs:
             </body>
           </html>
           EOL
-
       - name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@master
