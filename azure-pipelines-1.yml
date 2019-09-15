@@ -3,7 +3,12 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-name: 'Node CI in Azure DevOps'
+variables:
+  Version.Revision: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
+  VersionMajor: 1
+  VersionMinor: 0
+
+name: '$(Build.DefinitionName) $(VersionMajor).$(VersionMinor).$(Date:yy)$(DayOfYear).$(Version.Revision)'
 
 trigger:
 - none
