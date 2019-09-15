@@ -22,8 +22,9 @@ jobs:
         cd "Hands-on lab/lab-files"
         npm ci
         npm run build
+        
     - name: Make a Page
-        run: |
+      run: |
           mkdir public
           cat > public/index.html <<EOL
           <!doctype html>
@@ -36,3 +37,12 @@ jobs:
             </body>
           </html>
           EOL
+       -
+        name: Deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@master
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
