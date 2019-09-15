@@ -1,10 +1,10 @@
-name: Node CI
+name: Node CI/CD
 
 on: [push]
 
 jobs:
   build:
-    name: install npm and build
+    name: install npm and build, deploy docker container to Azure CR
 
     runs-on: ubuntu-latest
 
