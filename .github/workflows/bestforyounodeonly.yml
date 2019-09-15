@@ -1,4 +1,4 @@
-name: Node Build
+name: Node Continuos Integration (CI)
 
 on: [push]
 
