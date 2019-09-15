@@ -22,3 +22,17 @@ jobs:
         cd "Hands-on lab/lab-files"
         npm ci
         npm run build
+    name: Make a Page
+        run: |
+          mkdir public
+          cat > public/index.html <<EOL
+          <!doctype html>
+          <html>
+            <head>
+              <title>Node App deployed!</title>
+            </head>
+            <body>
+              <p>Node App with <strong>${{ github.sha }}</strong> commit ID has been built.</p>
+            </body>
+          </html>
+          EOL
