@@ -36,7 +36,8 @@ jobs:
             <body>
               <p>Node App with <strong>${{ github.sha }}</strong> commit ID has been built.</p>
             </body>
-          </html>EOL
+          </html>
+          EOL 
    -
      name: Deploy
        if: success()
