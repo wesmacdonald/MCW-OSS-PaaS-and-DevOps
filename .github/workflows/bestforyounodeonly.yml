@@ -5,7 +5,6 @@ on: [push]
 jobs:
   build:
     name: install npm and build
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,30 +21,34 @@ jobs:
         cd "Hands-on lab/lab-files"
         npm ci
         npm run build
-        
-    -
-      name: Make a Page
-      run: |
+
+   publish:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@master
+      -
+        name: Build
+        run: |
           mkdir public
           cat > public/index.html <<EOL
           <!doctype html>
           <html>
             <head>
-              <title>Node App deployed!</title>
+              <title>GitHub Pages deployed!</title>
             </head>
             <body>
-              <p>Node App with <strong>${{ github.sha }}</strong> commit ID has been built.</p>
+              <p>GitHub Pages with <strong>${{ github.sha }}</strong> commit ID has been deployed through <a href="https://github.com/marketplace/actions/github-pages">GitHub Pages action</a> successfully.</p>
             </body>
           </html>
-          EOL 
-   -
-     name: Deploy
-       if: success()
-     uses: crazy-max/ghaction-github-pages@master
-     with:
-       target_branch: master
-       build_dir: public
-     env:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       
-       
+          EOL
+      -
+        name: Deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@master
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
