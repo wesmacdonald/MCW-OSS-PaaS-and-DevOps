@@ -38,3 +38,13 @@ jobs:
             </body>
           </html>
           EOL
+          
+       -
+        name: Deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@master
+        with:
+          target_branch: master
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
