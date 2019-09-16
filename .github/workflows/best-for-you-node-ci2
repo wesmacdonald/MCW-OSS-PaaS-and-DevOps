@@ -1,0 +1,25 @@
+name: Node Just Build the App
+
+on: [push]
+
+jobs:
+  build:
+    name: install npm and build
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [12]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm clean install and build
+      run: |
+        cd "Hands-on lab/lab-files"
+        npm ci
+        npm run build
+
