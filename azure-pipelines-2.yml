@@ -14,6 +14,7 @@ stages:
     steps:
     - script: echo my first build job
 - stage: Deploy
+  dependsOn: Build
   jobs:
     # track deployments on the environment
   - deployment: DeployWeb
