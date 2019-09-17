@@ -1,13 +1,23 @@
+# Built-test-staging-prod pipeline
+
+# Only run against master
+trigger:
+- master
+
+# Don't run against PRs
+pr: none
+
+
 stages:
 - stage: Build
   jobs:
-  - job: Build Web Sites
+  - job: Build-Web-Sites
     pool:
       vmImage: 'Ubuntu-16.04'
     continueOnError: true
     steps:
     - script: echo my first build job
-    job: Build Database
+    job: Build-Database
     pool:
       vmImage: 'Ubuntu-16.04'
     continueOnError: true
