@@ -1,9 +1,16 @@
 # multi-stage yaml pipelines
 # build-test-staging-prod pipeline
 
+variables:
+  Version.Revision: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
+  VersionMajor: 1
+  VersionMinor: 0
+
+name: '$(Build.DefinitionName) $(VersionMajor).$(VersionMinor).$(Date:yy)$(DayOfYear).$(Version.Revision)'
+
 # Only run against master
 trigger:
-  - master
+- master
 
 # Don't run against PRs
 pr: none
@@ -15,10 +22,23 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: |
-      cd "Hands-on lab/lab-files"
-      npm install
-      npm run build
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Install Node.js'
+
+      - task: Npm@1
+        inputs:
+          command: 'install'
+          workingDir: 'Hands-on lab/lab-files'
+        displayName: 'npm install' 
+
+      - task: Npm@1
+        inputs:
+          command: 'custom'
+          workingDir: 'Hands-on lab/lab-files'
+          customCommand: 'run build'
+        displayName: 'npm run build'
       
 - stage: unittests
   dependsOn: build
