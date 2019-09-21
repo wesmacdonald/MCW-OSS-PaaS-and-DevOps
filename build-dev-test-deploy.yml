@@ -47,7 +47,7 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: echo If I had some unit tests we would execute them here :)
+    - script: echo 'If I had some unit tests we would execute them here :) '
     
 - stage: dev
   dependsOn: unittests
@@ -56,7 +56,7 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: echo Deploy container to dev slot/webapp
+    - script: echo 'Deploy container to dev slot/webapp'
 
 - stage: test
   dependsOn: dev
@@ -65,7 +65,7 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: echo Deploy container to test slot/webapp
+    - script: echo 'Deploy container to test slot/webapp'
 
 - stage: uat
   dependsOn: test
@@ -74,7 +74,7 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: echo Deploy container to uat slot/webapp
+    - script: echo 'Deploy container to uat slot/webapp'
 
 - stage: preprod
   dependsOn: uat
@@ -83,7 +83,7 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: echo Deploy container to preprod slot/webapp
+    - script: echo 'Deploy container to preprod slot/webapp'
 
 - stage: production
   dependsOn: preprod
@@ -92,4 +92,4 @@ stages:
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
-    - script: echo Deploy container to production slot/webapp
+    - script: echo 'Deploy container to production slot/webapp'
