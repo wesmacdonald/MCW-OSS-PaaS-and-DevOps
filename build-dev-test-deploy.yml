@@ -1,0 +1,75 @@
+# multi-stage yaml pipelines
+# build-test-staging-prod pipeline
+
+# Only run against master
+trigger:
+  - master
+
+# Don't run against PRs
+pr: none
+
+stages:
+- stage: build
+  jobs:
+  - job: run_build
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: |
+      cd "Hands-on lab/lab-files"
+      npm install
+      npm run build
+      
+- stage: unittests
+  dependsOn: build
+  jobs:
+  - job: run_tests
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo If I had some unit tests we would execute them here :)
+    
+- stage: dev
+  dependsOn: unittests
+  jobs:
+  - job: deploy_dev
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy container to dev slot/webapp
+
+- stage: test
+  dependsOn: dev
+  jobs:
+  - job: deploy_test
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy container to test slot/webapp
+
+- stage: uat
+  dependsOn: test
+  jobs:
+  - job: deploy_uat
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy container to uat slot/webapp
+
+- stage: preprod
+  dependsOn: uat
+  jobs:
+  - job: deploy_preprod
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy container to preprod slot/webapp
+
+- stage: production
+  dependsOn: preprod
+  jobs:
+  - job: deploy_prod
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy container to production slot/webapp
