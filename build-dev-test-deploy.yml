@@ -52,11 +52,16 @@ stages:
 - stage: dev
   dependsOn: unittests
   jobs:
-  - job: deploy_dev
+  - deployment: dev
+    displayName: Deploy DEV
     pool:
       vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo 'Deploy container to dev slot/webapp'
+    environment: 'npm-dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploy container to dev slot/webapp'
 
 - stage: test
   dependsOn: dev
