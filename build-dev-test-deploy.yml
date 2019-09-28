@@ -70,7 +70,16 @@ stages:
       runOnce:
         deploy:
           steps:
-          - script: echo 'Deploy docker container to DEV WebApp'
+          - script: echo 'Deploy docker container to DEV WebApp or SLOT'
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Azure App Service Deploy: best-for-you-app-wm'
+            inputs:
+                azureSubscription: 'MCW-OSS-PAAS-DevOps'
+                appType: webAppContainer
+                WebAppName: 'best-for-you-app-wm'
+                DockerNamespace: bestforyouregistrywm.azurecr.io
+                DockerRepository: 'best-for-you-organics'
+                DockerImageTag: latest
 
 - stage: test
   dependsOn: dev
