@@ -107,53 +107,68 @@ stages:
 - stage: uat
   dependsOn: test
   jobs:
-  - job: deploy_uat
+  - deployment: uat
+    displayName: 'Deploy to UAT'
     pool:
       vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo 'Deploy container to uat slot/webapp'
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Azure App Service Deploy: best-for-you-app-wm-uat-wac'
-      inputs:
-        azureSubscription: 'MCW-OSS-PAAS-DevOps'
-        appType: webAppContainer
-        WebAppName: 'best-for-you-app-wm-uat-wac'
-        DockerNamespace: bestforyouregistrywm.azurecr.io
-        DockerRepository: 'best-for-you-organics'
-        DockerImageTag: latest
+    environment: 'npm-uat'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploy container to uat slot/webapp'
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Azure App Service Deploy: best-for-you-app-wm-uat-wac'
+            inputs:
+                azureSubscription: 'MCW-OSS-PAAS-DevOps'
+                appType: webAppContainer
+                WebAppName: 'best-for-you-app-wm-uat-wac'
+                DockerNamespace: bestforyouregistrywm.azurecr.io
+                DockerRepository: 'best-for-you-organics'
+                DockerImageTag: latest
 
 - stage: preprod
   dependsOn: uat
   jobs:
-  - job: deploy_preprod
+  - deployment: preprod
+    displayName: 'Deploy to Pre-Prod'
     pool:
       vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo 'Deploy container to preprod slot/webapp'
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Azure App Service Deploy: best-for-you-app-wm-ppe-wac'
-      inputs:
-        azureSubscription: 'MCW-OSS-PAAS-DevOps'
-        appType: webAppContainer
-        WebAppName: 'best-for-you-app-wm-ppe-wac'
-        DockerNamespace: bestforyouregistrywm.azurecr.io
-        DockerRepository: 'best-for-you-organics'
-        DockerImageTag: latest
+    environment: 'npm-ppe'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploy container to ppe slot/webapp'
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Azure App Service Deploy: best-for-you-app-wm-ppe-wac'
+            inputs:
+                azureSubscription: 'MCW-OSS-PAAS-DevOps'
+                appType: webAppContainer
+                WebAppName: 'best-for-you-app-wm-ppe-wac'
+                DockerNamespace: bestforyouregistrywm.azurecr.io
+                DockerRepository: 'best-for-you-organics'
+                DockerImageTag: latest
 
 - stage: production
   dependsOn: preprod
   jobs:
-  - job: deploy_prod
+  - deployment: production
+    displayName: 'Deploy to Production'
     pool:
       vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo 'Deploy container to production slot/webapp'
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Azure App Service Deploy: best-for-you-app-wm'
-      inputs:
-          azureSubscription: 'MCW-OSS-PAAS-DevOps'
-          appType: webAppContainer
-          WebAppName: 'best-for-you-app-wm'
-          DockerNamespace: bestforyouregistrywm.azurecr.io
-          DockerRepository: 'best-for-you-organics'
-          DockerImageTag: latest
+    environment: 'npm-prod'  
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploy container to prodution slot/webapp'
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Azure App Service Deploy: best-for-you-app-wm'
+            inputs:
+                azureSubscription: 'MCW-OSS-PAAS-DevOps'
+                appType: webAppContainer
+                WebAppName: 'best-for-you-app-wm'
+                DockerNamespace: bestforyouregistrywm.azurecr.io
+                DockerRepository: 'best-for-you-organics'
+                DockerImageTag: latest
