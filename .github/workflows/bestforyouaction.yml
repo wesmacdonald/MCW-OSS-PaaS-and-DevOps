@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Azure Login action
       # Unlike code deployment, you will authenticate using an Azure Service Principal
-      uses: azure/actions/login@master
+      uses: azure/login/login@master
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
