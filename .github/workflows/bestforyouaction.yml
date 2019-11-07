@@ -32,7 +32,7 @@ jobs:
         npm run build
 
     - name: Docker Login action
-      uses: azure/container-actions/docker-login@master
+      uses: azure/docker-login@v1
       with:
         login-server: bestforyouregistrywm.azurecr.io
         username: bestforyouregistrywm
