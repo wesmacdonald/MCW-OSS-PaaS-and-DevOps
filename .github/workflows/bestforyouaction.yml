@@ -45,7 +45,7 @@ jobs:
         docker push bestforyouregistrywm.azurecr.io/best-for-you-organics:${{ github.sha }}     
      
      
-    - uses: azure/appservice-actions/webapp-container@master
+    - uses: azure/webapps-container-deploy@v1
       with:
         app-name: 'best-for-you-app-wm'
         images: 'bestforyouregistrywm.azurecr.io/best-for-you-organics:latest'
