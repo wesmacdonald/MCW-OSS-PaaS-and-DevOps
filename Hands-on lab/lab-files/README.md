@@ -19,7 +19,7 @@ VM details:
 
 ## Starter app
 
-Once the VM is deployed, connect to it using an RDP client, fork the starter application into your own GitHub repo, and clone it to the Lab VM.
+Once the VM is deployed, connect to it using an RDP client, fork the starter application into your own GitHub repo, and clone it to the Lab VM which is running Ubuntu and has VS Code available.
 
 The starter project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
