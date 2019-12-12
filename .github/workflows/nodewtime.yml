@@ -3,9 +3,10 @@ name: Node CI
 on:
   push:
     branches:
-        - master
+      - master
+    # file paths to consider in the event. defaults to all.
     paths:
-        - 'Hands-on lab/lab-files/**'
+      - 'Hands-on lab/lab-files/*'
 
 jobs:
   build:
