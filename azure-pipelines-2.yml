@@ -1,8 +1,15 @@
 # Built-test-staging-prod pipeline
 
-# Only run against master
+# Only run against certain branches
 trigger:
-- master
+ branches:
+   include:
+     - master
+     - releases/*
+ paths:
+  include:
+     - docs/*
+
 
 # Don't run against PRs
 pr: none
