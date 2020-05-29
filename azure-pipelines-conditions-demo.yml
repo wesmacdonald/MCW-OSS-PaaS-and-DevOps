@@ -8,6 +8,12 @@ trigger:
 
 name: '$(Build.DefinitionName) 1.0.0.$(Date:yy)$(DayOfYear)'
 
+parameters:
+  - name: DoJobOne
+    default: true
+    type: boolean
+
+
 stages:
   - stage: demo
     jobs:
@@ -22,7 +28,7 @@ stages:
       - script: echo $(setvarStep.DoNextJob)
         name: echovariable
 
-    # Map the variable into job Two
+    
     - job: Two
       condition: eq(variables['DoNextJob'], true)
       dependsOn: One
@@ -32,4 +38,17 @@ stages:
         myVariableFromJobOne: $[ dependencies.One.outputs['setvarStep.DoNextJob'] ]
       steps:
       - script: echo $(myVariableFromJobOne)
+        name: echovariable
+
+    - job: Three
+      condition: and(eq('${{ parameters.DoJobOne }}', true), eq(variables['DoNextJob'], false)
+      dependsOn: One
+      pool:
+        vmImage: 'windows-2019'
+      variables:
+        myVariableFromJobOne: $[ dependencies.One.outputs['setvarStep.DoNextJob'] ]
+      steps:
+      - script: |
+          echo $(myVariableFromJobOne)
+          echo ${{ parameters.DoJobOne }}
         name: echovariable
