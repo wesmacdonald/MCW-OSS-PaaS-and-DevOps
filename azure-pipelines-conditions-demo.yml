@@ -45,7 +45,7 @@ stages:
         name: echovariable
 
     - job: Three
-      condition: and(eq('${{ parameters.DoJobOne }}', false), ne(dependencies.One.outputs['setvarStep.JobOneRan'], 'true')
+      condition: and(eq('${{ parameters.DoJobOne }}', false), ne(dependencies.One.outputs['setvarStep.JobOneRan'], 'true'))
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
