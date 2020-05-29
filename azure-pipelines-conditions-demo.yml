@@ -10,7 +10,7 @@ name: '$(Build.DefinitionName) 1.0.0.$(Date:yy)$(DayOfYear)'
 
 parameters:
   - name: DoJobOne
-    default: true
+    default: false
     type: boolean
 
 
