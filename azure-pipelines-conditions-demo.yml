@@ -20,22 +20,23 @@ stages:
 
     # Set an output variable from job One
     - job: One
+      condition: eq('${{ parameters.DoJobOne }}', true)
       pool:
         vmImage: 'windows-2019'
       steps:
-      - powershell: echo "##vso[task.setvariable variable=DoNextJob;isOutput=true]false"
+      - powershell: echo "##vso[task.setvariable variable=JobOneRan;isOutput=true]true"
         name: setvarStep
-      - script: echo $(setvarStep.DoNextJob)
+      - script: echo $(setvarStep.JobOneRan)
         name: echovariable
 
     
     - job: Two
-      condition: eq(variables['DoNextJob'], true)
+      condition: eq(variables['JobOneRan'], true)
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
       variables:
-        myVariableFromJobOne: $[ dependencies.One.outputs['setvarStep.DoNextJob'] ]
+        myVariableFromJobOne: $[ dependencies.One.outputs['setvarStep.JobOneRan'] ]
       steps:
       - script: echo $(myVariableFromJobOne)
         name: echovariable
@@ -46,7 +47,7 @@ stages:
       pool:
         vmImage: 'windows-2019'
       variables:
-        myVariableFromJobOne: $[ dependencies.One.outputs['setvarStep.DoNextJob'] ]
+        myVariableFromJobOne: $[ dependencies.One.outputs['setvarStep.JobOneRan'] ]
       steps:
       - script: |
           echo $(myVariableFromJobOne)
