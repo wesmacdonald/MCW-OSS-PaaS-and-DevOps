@@ -6,6 +6,8 @@
 trigger:
 - master
 
+name: 'Conditions Demo'
+
 stages:
   - stage: demo
     jobs:
