@@ -41,7 +41,7 @@ stages:
         name: echovariable
 
     - job: Three
-      condition: and(eq('${{ parameters.DoJobOne }}', true), eq(variables['DoNextJob'], false))
+      condition: eq('${{ parameters.DoJobOne }}', true)
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
