@@ -31,7 +31,7 @@ stages:
 
     
     - job: Two
-      condition: eq(variables['JobOneRan'], true)
+      condition: eq(dependencies.One.outputs['setvarStep.JobOneRan'], 'true')
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
