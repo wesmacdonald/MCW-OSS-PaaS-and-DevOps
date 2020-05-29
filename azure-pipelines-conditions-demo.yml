@@ -6,7 +6,10 @@
 trigger:
 - master
 
-name: '$(Build.DefinitionName) 1.0.0.$(Date:yy)$(DayOfYear)'
+variables:
+   Version.Revision: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
+
+name: '$(Build.DefinitionName) 1.0.0.$(Date:yy)$(DayOfYear)$(Version.Revision)'
 
 parameters:
   - name: DoJobOne
@@ -31,7 +34,7 @@ stages:
 
     
     - job: Two
-      condition: eq(dependencies.One.outputs['setvarStep.JobOneRan'], 'true')
+      condition: always()
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
@@ -42,7 +45,7 @@ stages:
         name: echovariable
 
     - job: Three
-      condition: eq('${{ parameters.DoJobOne }}', true)
+      condition: and(eq('${{ parameters.DoJobOne }}', false), ne(dependencies.One.outputs['setvarStep.JobOneRan'], 'true')
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
