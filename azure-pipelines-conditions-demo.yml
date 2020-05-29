@@ -6,7 +6,7 @@
 trigger:
 - master
 
-name: 'Conditions Demo'
+name: '$(Build.DefinitionName) 1.0.0.$(Date:yy)$(DayOfYear)'
 
 stages:
   - stage: demo
