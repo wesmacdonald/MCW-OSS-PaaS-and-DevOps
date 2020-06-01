@@ -29,7 +29,9 @@ stages:
       steps:
       - powershell: echo "##vso[task.setvariable variable=JobOneRan;isOutput=true]true"
         name: setvarStep
-      - script: echo $(setvarStep.JobOneRan)
+      - script: |
+          echo $(setvarStep.JobOneRan)
+          throw "simulate Job One failing"
         name: echovariable
 
     
