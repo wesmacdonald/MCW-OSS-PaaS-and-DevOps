@@ -28,7 +28,7 @@ stages:
         vmImage: 'windows-2019'
       steps:
       - powershell: |
-          throw "simulate Job One failing"
+          write-host "do not throw error"
           echo "##vso[task.setvariable variable=JobOneRan;isOutput=true]true"
         name: setvarStep
       - script: |
