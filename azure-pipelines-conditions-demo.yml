@@ -27,16 +27,17 @@ stages:
       pool:
         vmImage: 'windows-2019'
       steps:
-      - powershell: echo "##vso[task.setvariable variable=JobOneRan;isOutput=true]true"
+      - powershell: |
+          throw "simulate Job One failing"
+          echo "##vso[task.setvariable variable=JobOneRan;isOutput=true]true"
         name: setvarStep
       - script: |
-          echo $(setvarStep.JobOneRan)
-          throw "simulate Job One failing"
+          echo $(setvarStep.JobOneRan)          
         name: echovariable
 
     
     - job: Two
-      condition: always()
+      condition: and(always(), eq(parameters.DoJobOne, dependencies.One.outputs['setvarStep.JobOneRan'])
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
