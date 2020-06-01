@@ -37,7 +37,7 @@ stages:
 
     
     - job: Two
-      condition: and(always(), eq('${{ parameters.DoJobOne }}', dependencies.One.outputs['setvarStep.JobOneRan'])
+      condition: and(always(), eq('${{ parameters.DoJobOne }}', dependencies.One.outputs['setvarStep.JobOneRan']))
       dependsOn: One
       pool:
         vmImage: 'windows-2019'
