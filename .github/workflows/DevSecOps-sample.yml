@@ -45,8 +45,30 @@ jobs:
         with:
           login-server: safecontainersregistry.azurecr.io
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}     
+          password: ${{ secrets.DOCKER_PASSWORD }}          
         
-        
-        
+      - name: Run docker build
+        run: |
+          cd "Hands-on lab/lab-files"
+          docker build . -t safecontainersregistry.azurecr.io/best-for-you-organics:${{ github.sha }}               
+      
+      - name: Scan images for vulnerabilities 
+        uses: Azure/container-scan@v0         
+        id: container-scan 
+        continue-on-error: true 
+        with:
+          image-name: safecontainersregistry.azurecr.io/best-for-you-organics:${{ github.sha }} 
+       
+      
+      - name: Post logs to appinsights 
+        uses: Azure/publish-security-assessments@v0 
+        with: 
+          scan-results-path: ${{steps.container-scan.outputs.scan-report-path}} 
+          artifact-type: containerImage
+          subscription-token: ${{ secrets.asc_subscription_token }}
+          instrumentation-key: ${{ secrets.ai_instrumentation_key }}
+
+      - name: Push docker image to Azure Container Registry 
+        run: | 
+          docker push safecontainersregistry.azurecr.io/best-for-you-organics:${{ github.sha }}
       
