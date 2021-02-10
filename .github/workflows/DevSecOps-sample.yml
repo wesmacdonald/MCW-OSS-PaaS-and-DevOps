@@ -59,6 +59,9 @@ jobs:
         with:
           image-name: safecontainersregistry.azurecr.io/best-for-you-organics:${{ github.sha }} 
        
+      - name: Push docker image to Azure Container Registry 
+        run: | 
+          docker push safecontainersregistry.azurecr.io/best-for-you-organics:${{ github.sha }}
       
       - name: Post logs to appinsights 
         uses: Azure/publish-security-assessments@v0 
@@ -68,7 +71,4 @@ jobs:
           subscription-token: ${{ secrets.asc_subscription_token }}
           instrumentation-key: ${{ secrets.ai_instrumentation_key }}
 
-      - name: Push docker image to Azure Container Registry 
-        run: | 
-          docker push safecontainersregistry.azurecr.io/best-for-you-organics:${{ github.sha }}
       
