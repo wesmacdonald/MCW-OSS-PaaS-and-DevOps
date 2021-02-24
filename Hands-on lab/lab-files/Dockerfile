@@ -6,3 +6,4 @@ RUN npm install --production --silent && mv node_modules ../
 COPY . .
 EXPOSE 3000
 CMD npm start
+HEALTHCHECK --interval=35s --timeout=4s CMD curl -f http://localhost:3000/ || exit 1
